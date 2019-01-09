@@ -149,26 +149,26 @@ public class Parser {
                 try {
                     res = -unary();
                 } catch (NullPointerException npe) {
-                    throw new MissingOperandException(expression, index);
+                    throw new MissingOperandException(index);
                 }
                 break;
             case OBR:
                 balance++;
                 res = lowestPriority();
                 if (token != Token.CBR) {
-                    throw new MissingClosingBracketException(expression, index);
+                    throw new MissingClosingBracketException(index);
                 }
                 parseToken();
                 break;
             case CBR:
                 if (balance == 0) {
-                    throw new MissingOpeningBracketException(expression, index);
+                    throw new MissingOpeningBracketException(index);
                 }
                 balance--;
                 res = null;
                 break;
             case INV:
-                throw new IncorrectSymbolException(expression, index);
+                throw new IncorrectSymbolException(index);
             default:
                 res = null;
         }
@@ -188,7 +188,7 @@ public class Parser {
                         if (divisor == null) {
                             throw new NullPointerException();
                         } else if (divisor.compareTo(0.0) == 0) {
-                            throw new DivisionByZeroException(expression, index);
+                            throw new DivisionByZeroException();
                         }
                         res /= divisor;
                         break;
@@ -196,7 +196,7 @@ public class Parser {
                         return res;
                 }
             } catch (NullPointerException e) {
-                throw new MissingOperandException(expression, index);
+                throw new MissingOperandException(index);
             }
         }
     }
@@ -215,7 +215,7 @@ public class Parser {
                         return res;
                 }
             } catch (NullPointerException e) {
-                throw new MissingOperandException(expression, index);
+                throw new MissingOperandException(index);
             }
 
         }

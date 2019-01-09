@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Conceptual Design</string>
+    <string name="app_name">Calculator</string>
     <string name="erase">C</string>
     <string name="erase_all">AC</string>
     <string name="digit_7">7</string>
