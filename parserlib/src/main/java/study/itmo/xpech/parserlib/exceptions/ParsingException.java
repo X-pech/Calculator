@@ -5,6 +5,7 @@ public class ParsingException extends Exception {
     super(message);
   }
 
+  @Deprecated
   static protected String emphasize(int index, int length) {
     StringBuilder sb = new StringBuilder();
     for (int i = 0; i < index; i++) {
