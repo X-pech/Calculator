@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
-import java.math.BigDecimal;
+import java.lang.Double;
 
 import study.itmo.xpech.parserlib.Parser;
 import study.itmo.xpech.parserlib.exceptions.ParsingException;
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         String expr = calcScreen.getText().toString();
         Parser parser = new Parser();
         try {
-            BigDecimal res = parser.eval(expr);
+            Double res = parser.eval(expr);
             calcScreen.setText(String.format("%s", res));
         } catch (ParsingException pe) {
             Toast err = Toast.makeText(MainActivity.this, String.format("Error occured while parsing: %s", pe.getMessage()), Toast.LENGTH_LONG);

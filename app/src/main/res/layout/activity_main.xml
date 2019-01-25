@@ -12,12 +12,21 @@
         android:orientation="vertical"
         android:weightSum="3">
 
-        <TextView
+        <EditText
             android:id="@+id/calcScreen"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="40sp" />
+            android:clickable="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:shadowColor="@color/colorPrimary"
+            android:text="@string/digit_0"
+            android:textColor="@color/colorAccent"
+            android:textColorHighlight="@color/colorPrimary"
+            android:textColorHint="@color/colorPrimary"
+            android:textIsSelectable="true"
+            android:textSize="30sp" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -42,8 +51,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="/"
-                        android:onClick="addCharacterToScreen" />
+                        android:onClick="addCharacterToScreen"
+                        android:text="@string/div" />
 
                     <Button
                         android:id="@+id/button2"
@@ -52,7 +61,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:onClick="addCharacterToScreen"
-                        android:text="*" />
+                        android:text="@string/mul" />
 
                     <Button
                         android:id="@+id/button3"
@@ -61,7 +70,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:onClick="eraseAllCharacters"
-                        android:text="EA" />
+                        android:text="@string/erase_all" />
 
                     <Button
                         android:id="@+id/button4"
@@ -70,7 +79,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:onClick="eraseLastCharacter"
-                        android:text="EL" />
+                        android:text="@string/erase" />
 
                 </TableRow>
 
@@ -88,7 +97,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:onClick="addCharacterToScreen"
-                        android:text="7" />
+                        android:text="@string/digit_7" />
 
                     <Button
                         android:id="@+id/button7"
@@ -97,7 +106,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:onClick="addCharacterToScreen"
-                        android:text="8" />
+                        android:text="@string/digit_8" />
 
                     <Button
                         android:id="@+id/button8"
@@ -106,7 +115,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:onClick="addCharacterToScreen"
-                        android:text="9" />
+                        android:text="@string/digit_9" />
 
                     <Button
                         android:id="@+id/button9"
@@ -115,7 +124,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:onClick="addCharacterToScreen"
-                        android:text="-" />
+                        android:text="@string/sub" />
                 </TableRow>
 
                 <TableRow
@@ -132,7 +141,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:onClick="addCharacterToScreen"
-                        android:text="4" />
+                        android:text="@string/digit_4" />
 
                     <Button
                         android:id="@+id/button11"
@@ -141,7 +150,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:onClick="addCharacterToScreen"
-                        android:text="5" />
+                        android:text="@string/digit_5" />
 
                     <Button
                         android:id="@+id/button12"
@@ -150,7 +159,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:onClick="addCharacterToScreen"
-                        android:text="6" />
+                        android:text="@string/digit_6" />
 
                     <Button
                         android:id="@+id/button13"
@@ -159,7 +168,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:onClick="addCharacterToScreen"
-                        android:text="+" />
+                        android:text="@string/add" />
                 </TableRow>
 
                 <TableRow
@@ -176,7 +185,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:onClick="addCharacterToScreen"
-                        android:text="1" />
+                        android:text="@string/digit_1" />
 
                     <Button
                         android:id="@+id/button15"
@@ -185,7 +194,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:onClick="addCharacterToScreen"
-                        android:text="2" />
+                        android:text="@string/digit_2" />
 
                     <Button
                         android:id="@+id/button16"
@@ -194,16 +203,16 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:onClick="addCharacterToScreen"
-                        android:text="3" />
+                        android:text="@string/digit_3" />
 
                     <Button
                         android:id="@+id/button17"
                         style="?android:attr/buttonBarButtonStyle"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:onClick="calc"
-                        android:text="=" />
+                        android:text="@string/calc" />
                 </TableRow>
 
                 <TableRow
@@ -215,38 +224,38 @@
                     <Button
                         android:id="@+id/button23"
                         style="?android:attr/buttonBarButtonStyle"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:onClick="addCharacterToScreen"
-                        android:text="." />
+                        android:text="@string/point" />
 
                     <Button
                         android:id="@+id/button24"
                         style="?android:attr/buttonBarButtonStyle"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:onClick="addCharacterToScreen"
-                        android:text="0" />
+                        android:text="@string/digit_0" />
 
                     <Button
                         android:id="@+id/button25"
                         style="?android:attr/buttonBarButtonStyle"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:onClick="addCharacterToScreen"
-                        android:text="(" />
+                        android:text="@string/obr" />
 
                     <Button
                         android:id="@+id/button26"
                         style="?android:attr/buttonBarButtonStyle"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:onClick="addCharacterToScreen"
-                        android:text=")" />
+                        android:text="@string/cbr" />
                 </TableRow>
             </TableLayout>
 

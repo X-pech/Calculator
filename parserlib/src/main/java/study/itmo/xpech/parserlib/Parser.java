@@ -1,7 +1,6 @@
 package study.itmo.xpech.parserlib;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.lang.Double;
 
 import study.itmo.xpech.parserlib.exceptions.*;
 
@@ -10,7 +9,7 @@ public class Parser {
     private String expression;
     private int index = 0;
     private int balance = 0;
-    private BigDecimal constValue;
+    private Double constValue;
 
     private enum Token {
         MUL,
@@ -51,7 +50,7 @@ public class Parser {
         try {
             //constValue = parse(constSB.toString());
             // TODO: check it out
-            constValue = new BigDecimal(constSB.toString());
+            constValue = Double.valueOf(constSB.toString());
             setToken(Token.CST);
         } catch (NumberFormatException e) {
             throw new ParsingOverflowException(expression, index);
@@ -130,7 +129,7 @@ public class Parser {
     }
 
 
-    private BigDecimal lowestPriority() throws ParsingException {
+    private Double lowestPriority() throws ParsingException {
         if (checkLowest()) {
             return binAdd();
         } else {
@@ -138,9 +137,9 @@ public class Parser {
         }
     }
 
-    private BigDecimal unary() throws ParsingException {
+    private Double unary() throws ParsingException {
         parseToken();
-        BigDecimal res;
+        Double res;
         switch (token) {
             case CST:
                 res = constValue;
@@ -148,82 +147,81 @@ public class Parser {
                 break;
             case NEG:
                 try {
-                    res = unary().negate();
+                    res = -unary();
                 } catch (NullPointerException npe) {
-                    throw new MissingOperandException(expression, index);
+                    throw new MissingOperandException(index);
                 }
                 break;
             case OBR:
                 balance++;
                 res = lowestPriority();
                 if (token != Token.CBR) {
-                    throw new MissingClosingBracketException(expression, index);
+                    throw new MissingClosingBracketException(index);
                 }
                 parseToken();
                 break;
             case CBR:
                 if (balance == 0) {
-                    throw new MissingOpeningBracketException(expression, index);
+                    throw new MissingOpeningBracketException(index);
                 }
                 balance--;
                 res = null;
                 break;
             case INV:
-                throw new IncorrectSymbolException(expression, index);
+                throw new IncorrectSymbolException(index);
             default:
                 res = null;
         }
         return res;
     }
 
-    private BigDecimal binMul() throws ParsingException {
-        BigDecimal res = unary();
+    private Double binMul() throws ParsingException {
+        Double res = unary();
         while (true) {
             try {
                 switch (token) {
                     case MUL:
-                        res = res.multiply(unary());
+                        res *= unary();
                         break;
                     case DIV:
-                        BigDecimal divisor = unary();
+                        Double divisor = unary();
                         if (divisor == null) {
                             throw new NullPointerException();
-                        } else if (divisor.compareTo(BigDecimal.ZERO) == 0) {
-                            throw new DivisionByZeroException(expression, index);
+                        } else if (divisor.compareTo(0.0) == 0) {
+                            throw new DivisionByZeroException();
                         }
-                        res = new BigDecimal(String.format("%s.0", res.toString()));
-                        res = res.divide(divisor, 32, RoundingMode.CEILING);
+                        res /= divisor;
                         break;
                     default:
                         return res;
                 }
             } catch (NullPointerException e) {
-                throw new MissingOperandException(expression, index);
+                throw new MissingOperandException(index);
             }
         }
     }
 
-    private BigDecimal binAdd() throws ParsingException {
-        BigDecimal res = binMul(); //TODO
+    private Double binAdd() throws ParsingException {
+        Double res = binMul();
         while (true) {
             try {
                 switch (token) {
                     case ADD:
-                        res = res.add(unary());
+                        res += unary();
                         break;
                     case SUB:
-                        res = res.subtract(unary());
+                        res -= unary();
                     default:
                         return res;
                 }
             } catch (NullPointerException e) {
-                throw new MissingOperandException(expression, index);
+                throw new MissingOperandException(index);
             }
 
         }
     }
 
-    public BigDecimal eval(String expression) throws ParsingException {
+    public Double eval(String expression) throws ParsingException {
         index = balance = 0;
         this.expression = expression;
         token = Token.NEU;
